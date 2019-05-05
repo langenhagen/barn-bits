@@ -6,5 +6,5 @@ I put code here that I consider efficicient, elegant, helpful, widely applicable
 keeping.
 The code is diverse with regard to programming language, purpose and technology.
 
-author: andreasl
-version: 19-04-25
+- author: andreasl
+- version: 19-04-25
