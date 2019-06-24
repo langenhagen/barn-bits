@@ -3,7 +3,8 @@
 # Contains common generic functions.
 #
 # author: andreasl
-# version: 19-06-04
+# version: 19-06-24
+
 
 def convert_millis_to_days_hours_minutes_seconds_millis(milliseconds: int):
     """Get a tuple of (days, hours, minutes, seconds, millis) from a given number of milliseconds."""
@@ -21,10 +22,10 @@ def convert_millis_to_days_hours_minutes_seconds_millis(milliseconds: int):
 
 import json
 import requests
-def pretty_print(request: requests.PreparedRequest):
-    """Pretty print a given object of type requests.PreparedRequest."""
+def get_request_as_string(request: requests.PreparedRequest):
+    """Get a string representation of a requests.PreparedRequest object."""
     headers = json.dumps({k: v for k, v in request.headers.items()}, indent=True)
-    print(
+    return (
         f"{request.method} {request.url}\n"
         f"Headers:\n{headers}\n"
         f"Body:\n{request.body}\n"
