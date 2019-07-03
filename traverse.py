@@ -28,7 +28,7 @@ def compile_patterns(patterns: Iterable[str]) -> Set[re.Pattern]:
     compiled_pattern = set()
     for pattern in patterns:
         try:
-            compiled_pattern.add(re.compile(patterns))
+            compiled_pattern.add(re.compile(pattern))
         except re.error as err:
             raise RegexCompileError(err.pattern, err.msg, err.pos)
     return compiled_pattern
