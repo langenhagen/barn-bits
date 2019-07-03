@@ -34,14 +34,15 @@ def compile_patterns(patterns: Iterable[str]) -> Set[re.Pattern]:
     return compiled_pattern
 
 
-def match_any(string: str, patterns: Set[re.Pattern]) -> bool:
-    """Quickly check if the given string matches any of the given regexes."""
+def match_any(string: str, patterns: Iterable[re.Pattern]) -> bool:
+    """Safely check if the given string matches any of the given regexes."""
+    if not patterns or not string:
+        return False
     return any(re.match(p, string) for p in patterns)
 
 
 def yield_paths(root: pathlib.Path, ignore_patterns: Iterable[re.Pattern] = None) -> Iterator[pathlib.Path]:
     """Yield all relative folder paths and file paths below a given path."""
-    ignore_patterns = ignore_patterns or []
     for dir_path, _, files in os.walk(root):
         if match_any(dir_path, ignore_patterns):
             continue
