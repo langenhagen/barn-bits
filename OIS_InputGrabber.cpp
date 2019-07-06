@@ -1,14 +1,13 @@
 /**
  * @file This app lets you make some input and prints out the corresponding OIS key codes.
  *
- * Since this app relies on ogre and not only on ois (the main purpose is to work with ogre, this is
- * just a litte helper software)
- * the executables can be found in the bin of the OGRE_HOME folder.
- * @brief
+ * The app may serve as an aid to identify key codes within ogre3d applications.
+ * This app relies on ogre and not only on ois. The executables can be found in the bin of the
+ * OGRE_HOME folder.
+ *
  * @author barn
  * @version 20121020
  */
-
 #include <iomanip>
 #include <iostream>
 
@@ -16,7 +15,6 @@
 #include <OGRE/Ogre.h>
 
 using namespace std;
-
 
 Ogre::Root* initOgre( int argc, char** argv);
 std::pair<OIS::InputManager*,OIS::Keyboard*> setupOIS( Ogre::RenderWindow* win);
@@ -35,7 +33,6 @@ int main( int argc, char** argv)
 	OIS::InputManager* man = p.first;
 	OIS::Keyboard* key = p.second;
 
-
 	// window loop
 	while(true)
 	{
@@ -45,9 +42,6 @@ int main( int argc, char** argv)
 		doTheKeyCodeThing( key);
 	}
 }
-
-
-
 
 /**
  * @brief Initializes OGRE.
@@ -61,7 +55,6 @@ Ogre::Root* initOgre( int argc, char** argv)
 	const char* config_file = "ogre.cfg";
 	const char* log_file = "Ogre.log";
 
-
 	Ogre::Root* root = new Ogre::Root( plugin_file, config_file, log_file);
 
 	if (!root->restoreConfig())
@@ -74,7 +67,6 @@ Ogre::Root* initOgre( int argc, char** argv)
 	}
 
 	root->initialise( true, window_title);
-
 	return root;
 }
 
