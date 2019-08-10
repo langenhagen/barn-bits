@@ -3,7 +3,6 @@
 # Contains common generic functions.
 #
 # author: andreasl
-# version: 19-06-24
 
 
 def convert_millis_to_days_hours_minutes_seconds_millis(milliseconds: int):
@@ -30,3 +29,19 @@ def get_request_as_string(request: requests.PreparedRequest):
         f"Headers:\n{headers}\n"
         f"Body:\n{request.body}\n"
     )
+
+
+import sys
+import termios
+import tty
+def getch() -> str:
+    """Get a single pressed character from keyboard without ENTER."""
+    file_descriptor = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(file_descriptor)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        char = sys.stdin.read(1)
+
+    finally:
+        termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old_settings)
+    return char
