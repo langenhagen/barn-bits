@@ -1,6 +1,6 @@
 /******************************************************************************
 /* @file Contains a tool to write an arbitrary std::tuple to an ostream.
-/*       Which, of course, depends on the tuple members to be supported 
+/*       Which, of course, depends on the tuple members to be supported
 /*       by an ostream operator
 /*
 /* - based on gen_seqs.
@@ -53,7 +53,7 @@ namespace tuple_to_stream {
         return os << " )";
     }
 
-    /// Ostream function for arbitrary tuples
+    /// Ostream function for arbitrary tuples.
     template<class Ch, class Tr, class... Args>
     inline std::basic_ostream<Ch, Tr>& operator<<(std::basic_ostream<Ch, Tr>& os, std::tuple<Args...> const& t) {
         return to_stream(os, t);
