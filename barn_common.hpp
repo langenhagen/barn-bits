@@ -1,16 +1,13 @@
-/******************************************************************************
+/**
 * @file Contains widely usable defines and macros and
 * generic utility/convenience functions.
 *
 * @author andreasl
-* @version 18-06-08
-******************************************************************************/
+*/
 #pragma once
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // DEFINES and MACROS
-
 
 /// enhanced delete call
 #define DESTROY( pointer) \
@@ -19,16 +16,13 @@
         pointer=0; \
     }
 
-
 /// a classical exit macro for console applications
 #define CONSOLE_EXIT( return_value) \
     getch(); \
     exit(return_value);
 
-
 /// EXIT macro
 #define EXIT(return_value) CONSOLE_EXIT(return_value)
-
 
 /// ultra short things only for private usage ;)
 #ifdef HELLO
@@ -1156,7 +1150,7 @@ bool contains( const Container< Object >& container,
 /** Removes duplicate consecutive whitespaces from the given string.
 Does not trim the string.
 */
-void remove_duplicate_whitespaces( std::string& s) {
+void remove_duplicate_whitespaces(std::string& s) {
   bool prior_char_is_whitespace(false);
   s.erase(std::remove_if( s.begin(),
                           s.end(),
@@ -1172,20 +1166,14 @@ void remove_duplicate_whitespaces( std::string& s) {
                           s.end());
 }
 
-
-void remove_duplicate_whitespaces( std::string& s) {
-  bool prior_char_is_whitespace(false);
-  s.erase(std::remove_if( s.begin(),
-                          s.end(),
-                          [&prior_char_is_whitespace](const unsigned char x) {
-                            const bool cur_char_is_whitespace = std::isspace(x);
-                            if(prior_char_is_whitespace) {
-                              prior_char_is_whitespace = cur_char_is_whitespace;
-                              return std::isspace(x);
-                            } else {
-                              prior_char_is_whitespace = cur_char_is_whitespace;
-                              return 0;
-                            }
-                            }),
-                          s.end());
+#include <iterator>
+#include <sstream>
+#include <vector>
+/** Split a text by whitespaces into words
+*/
+std::vector<std::string> split_text(const std::string& text) {
+    std::istringstream iss(text);
+    return std::vector<std::string>(
+        std::istream_iterator<std::string>{iss},
+        std::istream_iterator<std::string>());
 }
