@@ -17,7 +17,6 @@
 node* newNode( int val){
 
 	node* new = (node*)malloc(sizeof(node));
-
 	new->val = value;
 
 	// Integritaet in Liste

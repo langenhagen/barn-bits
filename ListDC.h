@@ -13,7 +13,6 @@
 ///////////////////////////////////////////////////////////////////// NOT GENERIC *****************
 // DATENTYP node: ein Listenelement
  typedef struct node{
-
 	int val;
 
 	struct node* left;
