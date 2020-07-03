@@ -15,7 +15,6 @@
 /////////////////////////////////////////////////////////////////////
 // newNode: erstellt einen neuen Knoten (Packing inbegriffen)
 node* newNode( int val){
-
 	node* new = (node*)malloc(sizeof(node));
 	new->val = value;
 

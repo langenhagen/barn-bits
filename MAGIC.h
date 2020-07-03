@@ -21,7 +21,6 @@ using namespace std;
 #define $( INPUT ) \
     std::cout << "\033[1;35m" << std::endl << ">>> " << INPUT << "\033[0m" << std::endl;
 
-
 /// TAB like std::endl
 #define TAB "\t"
 #define TAB2 "\t\t"
