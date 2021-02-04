@@ -1177,3 +1177,20 @@ std::vector<std::string> split_text(const std::string& text) {
         std::istream_iterator<std::string>{iss},
         std::istream_iterator<std::string>());
 }
+
+/** Implement Floyd's cycle detection algorithm.
+*/
+template<class T>
+bool detect_cycles_floyd(T floyd) {
+    auto slow_ptr = first;
+    auto fast_ptr = first;
+
+    while (slow_ptr && fast_ptr && fast_ptr->next) {
+        slow_ptr = slow_ptr->next;
+        fast_ptr = fast_ptr->next->next;
+        if (slow_ptr == fast_ptr) {
+            return true;
+        }
+    }
+    return false;
+}
