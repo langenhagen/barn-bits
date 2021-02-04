@@ -37,12 +37,6 @@ void barn_common_test_all() {
     find_missing_number_test.test("9", size_t(9), { 0u,1,2,3,4,5,6,7,8 });
     all_passed &= find_missing_number_test.write_test_series_summary();
 
-
-
-
-
-
-
     os << "\n";
     if (all_passed) os << "+++ ALL TEST SERIES PASSED +++ :)))";
     else            os << "--- SOME ERRORS OCCURED ---    :(((";

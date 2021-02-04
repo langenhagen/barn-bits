@@ -1169,7 +1169,7 @@ void remove_duplicate_whitespaces(std::string& s) {
 #include <iterator>
 #include <sstream>
 #include <vector>
-/** Split a text by whitespaces into words
+/** Split a text by whitespaces into words.
 */
 std::vector<std::string> split_text(const std::string& text) {
     std::istringstream iss(text);
