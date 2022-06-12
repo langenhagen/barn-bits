@@ -5,7 +5,9 @@
 # author: andreasl
 
 
-def convert_millis_to_days_hours_minutes_seconds_millis(milliseconds: int):
+def convert_millis_to_days_hours_minutes_seconds_millis(
+    milliseconds: int,
+) -> tuple[int, int, int, int, int]:
     """Get a tuple of (days, hours, minutes, seconds, millis) from a given number of milliseconds."""
     # this is congruent with str(datetime.timedelta(milliseconds = 345649021246))
     millis = int(milliseconds % 1000)
@@ -41,7 +43,6 @@ def getch() -> str:
     try:
         tty.setraw(sys.stdin.fileno())
         char = sys.stdin.read(1)
-
     finally:
         termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old_settings)
     return char
