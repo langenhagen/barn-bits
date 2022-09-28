@@ -48,3 +48,15 @@ def getch() -> str:
     finally:
         termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old_settings)
     return char
+
+
+import re
+import subprocess
+def get_processor_name() -> str:
+    """Return the processor name on a Linux machine."""
+    cmd = "cat /proc/cpuinfo"
+    all_info = subprocess.check_output(cmd, shell=True).decode().strip()
+    for line in all_info.split("\n"):
+        if "model name" in line:
+            return re.sub(".*model name.*:\s*", "", line, 1)
+    return ""
