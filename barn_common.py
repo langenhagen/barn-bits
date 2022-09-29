@@ -58,5 +58,6 @@ def get_processor_name() -> str:
     all_info = subprocess.check_output(cmd, shell=True).decode().strip()
     for line in all_info.split("\n"):
         if "model name" in line:
-            return re.sub(".*model name.*:\s*", "", line, 1)
+            return re.sub(r".*model name.*:\s*", "", line, 1)
+
     return ""
