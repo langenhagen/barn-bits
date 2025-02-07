@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-#
-# Contains common generic functions.
-#
-# author: andreasl
+"""Contains common generic functions.
+
+author: andreasl
+"""
 
 
 def convert_millis_to_days_hours_minutes_seconds_millis(
@@ -61,3 +61,54 @@ def get_processor_name() -> str:
             return re.sub(r".*model name.*:\s*", "", line, 1)
 
     return ""
+
+
+from pathlib import Path
+def get_free_memory_mb_via_cgroups() -> float:
+    """Get remaining memory as derived from the values in the cgroups files;
+    applicable for instances running in Kubernetes. In order for this to work,
+    the memory cgroup subsystem has to be enabled. This is usually the case in
+    Kubernetes-hosted instances, but not necessarily on your laptop.
+
+    Caution: Note that the cgroups available memory may not reflect the actual
+    state of the node's available memory.
+
+    Returns:
+        float: the remaining available memory in megabytes.
+    """
+
+    mem_limit_path = Path("/sys/fs/cgroup/memory/memory.limit_in_bytes")
+    mem_usage_path = Path("/sys/fs/cgroup/memory/memory.usage_in_bytes")
+
+    mem_limit_bytes = int(mem_limit_path.read_text().strip())
+    mem_usage_bytes = int(mem_usage_path.read_text().strip())
+
+    return (mem_limit_bytes - mem_usage_bytes) / (1024 * 1024)
+
+
+def get_free_memory_mb_via_proc_meminfo() -> float:
+    """Get remaining memory via `/proc/meminfo`; applicable for your laptop, but
+    not applicable for instances running in Kubernetes since `/proc/meminfo`
+    shows host memory, not cgroup limits, so it ignores Kubernetes container
+    restrictions.
+
+    Returns:
+        float: the remaining available memory in megabytes.
+    """
+    with open('/proc/meminfo') as f:
+        meminfo = {line.split(':')[0]: int(line.split()[1]) for line in f}
+    return meminfo['MemAvailable'] / 1024
+
+
+def get_free_memory_mb() -> float:
+    """Get remaining memory, depending on whether according cgroups memory
+    subsystem files are there, either via cgroups, or otherwise via psutil.
+    This usually works on both kubernetes instances and local machines.
+
+    Returns:
+        float: the remaining available memory in megabytes."""
+
+    mem_cgroup_path = Path("/sys/fs/cgroup/memory")
+    if mem_cgroup_path.is_dir():
+        return get_free_memory_mb_via_cgroups()
+    return get_free_memory_mb_via_proc_meminfo()
