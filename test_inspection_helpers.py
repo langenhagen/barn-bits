@@ -26,36 +26,36 @@ class TestChildClass(TestClass):
 
 
 class OtherTestChildClass(TestClass):
-    def some_method(self):
+    def some_method(self) -> None:
         print("Hello from a derived method E.foo()")
         print(get_function_name())
 
 
-def test_get_correct_free_function_name():
-    assert some_free_function() == 'some_free_function'
+def test_get_correct_free_function_name() -> None:
+    assert some_free_function() == "some_free_function"
 
 
-def test_get_correct_method_name():
+def test_get_correct_method_name() -> None:
     obj = TestClass()
-    assert obj.some_method() == 'some_method'
+    assert obj.some_method() == "some_method"
 
 
-def test_get_correct_staticmethod_name():
-    assert TestClass.some_static_method() == 'some_static_method'
+def test_get_correct_staticmethod_name() -> None:
+    assert TestClass.some_static_method() == "some_static_method"
 
 
-def test_get_correct_derived_method_name():
+def test_get_correct_derived_method_name() -> None:
     obj = TestChildClass()
-    assert obj.some_method() == 'some_method'
+    assert obj.some_method() == "some_method"
 
 
-def test_get_correct_derived_staticmethod_name():
-    assert TestClass.some_static_method() == 'some_static_method'
+def test_get_correct_derived_staticmethod_name() -> None:
+    assert TestClass.some_static_method() == "some_static_method"
 
 
-def test_get_correct_overridden_method_name():
+def test_get_correct_overridden_method_name() -> None:
     obj = TestChildClass()
-    assert obj.some_method() == 'some_method'
+    assert obj.some_method() == "some_method"
 
 
 def test_get_correct_function_arguments():

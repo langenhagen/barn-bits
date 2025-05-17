@@ -10,20 +10,22 @@ Use like:
   except RegexCompileError ar err:
       print(err)
 """
+
 import os
 import pathlib
 import re
-from typing import Iterable, Set
+from collections.abc import Iterable
 
 
 class RegexCompileError(re.error):
     """May be thrown when a regex could not be compiled."""
-    def __init__(self, pattern, msg, pos):
-        message = f"Could not compile pattern \"{pattern}\": {msg}, at {pos}."
+
+    def __init__(self, pattern, msg, pos) -> None:
+        message = f'Could not compile pattern "{pattern}": {msg}, at {pos}.'
         super().__init__(message)
 
 
-def compile_patterns(patterns: Iterable[str]) -> Set[re.Pattern]:
+def compile_patterns(patterns: Iterable[str]) -> set[re.Pattern]:
     """Retrieve a set of compiled patterns from given regex patterns."""
     compiled_pattern = set()
     for pattern in patterns:
@@ -41,7 +43,9 @@ def match_any(string: str, patterns: Iterable[re.Pattern]) -> bool:
     return any(re.match(p, string) for p in patterns)
 
 
-def yield_paths(root: pathlib.Path, ignore_patterns: Iterable[re.Pattern] = None) -> Iterator[pathlib.Path]:
+def yield_paths(
+    root: pathlib.Path, ignore_patterns: Iterable[re.Pattern] = None
+) -> Iterator[pathlib.Path]:
     """Yield all relative folder paths and file paths below a given path."""
     for dir_path, _, files in os.walk(root):
         if match_any(dir_path, ignore_patterns):

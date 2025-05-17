@@ -95,9 +95,9 @@ def get_free_memory_mb_via_proc_meminfo() -> float:
     Returns:
         float: the remaining available memory in megabytes.
     """
-    with open('/proc/meminfo') as f:
-        meminfo = {line.split(':')[0]: int(line.split()[1]) for line in f}
-    return meminfo['MemAvailable'] / 1024
+    with open("/proc/meminfo") as f:
+        meminfo = {line.split(":")[0]: int(line.split()[1]) for line in f}
+    return meminfo["MemAvailable"] / 1024
 
 
 def get_free_memory_mb() -> float:

@@ -4,14 +4,16 @@
 Contains a simple type and functions for working with generic directed graphs
 and n-ary trees.
 """
+
 import dataclasses
-from typing import Callable, Iterable, List, Type
+from collections.abc import Callable, Iterable
 
 
 @dataclasses.dataclass
 class Node:
     """A simple Node in an n-ary tree or directed graph."""
-    children: List["Node"] = dataclasses.field(default_factory=list)
+
+    children: list["Node"] = dataclasses.field(default_factory=list)
 
 
 def iterate_breadth_first(root: Node) -> Iterable[Node]:
@@ -30,7 +32,7 @@ def iterate_depth_first(root: Node) -> Iterable[Node]:
         yield from iterate_depth_first(child)
 
 
-def find_path(root: Node, predicate: Callable[[Type[Node]], bool]):
+def find_path(root: Node, predicate: Callable[[type[Node]], bool]):
     """Return the first path to a node that fulfills the given predicate."""
     result = [root]
     if predicate(root):
@@ -52,10 +54,10 @@ def yield_leaves(root: Node) -> Iterable[Node]:
 
 
 def get_paths_to_leaves(
-        root: Node,
-        path: List[Node] = [],
-        paths: List[List[Node]] = []
-) -> List[List[Node]]:
+    root: Node,
+    path: list[Node] = [],
+    paths: list[list[Node]] = [],
+) -> list[list[Node]]:
     """Get the paths to all leaves in a given tree."""
     path.append(root)
     if not root.children:
